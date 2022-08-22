@@ -15,6 +15,9 @@ In deze module gaan we achtereenvolgens een drietal HTML pagina's maken en ze da
 
 In deze module zie je een set aan [issues](../../issues) en dit is een overzicht van de opdrachten die je uit moet voeren. Herlees even de [werkinstructie](https://e-learning.educom.nu/algemeen/ProjectStructure/repository) voor het werken met GitHub issues binnen je projecten.
 
+Iedere issue in deze repository is in 1 a 1,5 dag te voltooien, voor mensen die al wat programmeer ervaring hebben zijn sommige issues minder dan een dag werk.
+De eerste 5/6 issues zijn de werkvoorraad voor de eerste week
+
 ## Resources
 Voor meer informatie kun je een kijkje nemen op [W3Schools](https://www.w3schools.com/), die hebben over het algemeen wel goede "beginner tutorials". 
 * [W3Schools HTML](https://www.w3schools.com/html/)
