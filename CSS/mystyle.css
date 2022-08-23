@@ -1,0 +1,46 @@
+body {
+  background-color: white;
+  width: 800px;
+  Margin: auto;
+  font-size: 12px;
+  color: darkgrey;
+}
+
+h1.title {
+  color: navy;
+  margin-left: 20px;
+  font-size: 48px;
+}
+
+footer{
+  background-color:black;
+  color:white;
+  font-size: 10px;
+  /* Next 4 lines: align bottom-right */
+  position: absolute;
+  bottom: 10px;
+  right: 0px;
+  width: 150px;
+  
+}
+
+form > div {
+    border: solid;
+    border-collapse: collapse;
+}
+
+ul.navigation {
+    background-color: blue;
+    list-style-type: none;
+    
+}
+ul.navigation li {
+}
+
+ul.navigation li > a {
+    color:white;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+
