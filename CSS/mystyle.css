@@ -6,6 +6,22 @@ body {
   color: darkgrey;
 }
 
+div {
+  margin-bottom: 15px;
+}  
+
+input[type=text] {
+  width:400px;
+}
+
+input[type=tel] {
+  width:400px;
+}
+
+input[type=email] {
+  width:400px;
+}
+
 h1.title {
   color: navy;
   margin-left: 20px;
@@ -20,27 +36,26 @@ footer{
   position: absolute;
   bottom: 10px;
   right: 0px;
-  width: 150px;
-  
-}
-
-form > div {
-    border: solid;
-    border-collapse: collapse;
+  width: 150px; 
 }
 
 ul.navigation {
     background-color: blue;
     list-style-type: none;
-    
-}
-ul.navigation li {
+    display: flex;
+    text-align: left;
+    padding-left: 0px;
+    background-color: white;
 }
 
 ul.navigation li > a {
     color:white;
     text-decoration: none;
     font-size: 20px;
+    border-style: solid;
+    border-color: black;
+    margin-right: 5px;
+    background-color: blue;
 }
 
 
