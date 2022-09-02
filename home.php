@@ -6,9 +6,9 @@
 <body>
   <h1 class="title">Website van Hanne</h1>
    <ul class="navigation">
-    <li><a HREF="index.html">Home</a></li>
-    <li><a HREF="about.html">About</a></li>
-    <li><a HREF="contact.php">Contact</a></li>
+    <li><a HREF="index.php?page=home">Home</a></li>
+    <li><a HREF="index.php?page=about">About</a></li>
+    <li><a HREF="index.php?page=contact">Contact</a></li>
    </ul>
    <h2>Welkom</h2>
  <div>

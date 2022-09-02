@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  * @param string $data the user input
  * @returns string the cleaned string.
  */
-function cleanupInputFromUser($data) {
+function cleanupInputFromUser($data) {;
   $data = trim($data);
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
@@ -69,9 +69,9 @@ function cleanupInputFromUser($data) {
 
   <h1 class="title">Contactformulier</h1>
    <ul class="navigation">
-    <li><a HREF="index.html">Home</a></li>
-    <li><a HREF="about.html">About</a></li>
-    <li><a HREF="contact.php">Contact</a></li>
+    <li><a HREF="index.php?page=home">Home</a></li>
+    <li><a HREF="index.php?page=about">About</a></li>
+    <li><a HREF="index.php?page=contact">Contact</a></li>
    </ul>
    
    <?php if (!$valid) { /* Show the next part only when $valid is false */ ?>;
