@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="CSS\mystyle.css">
-</head>
-<body>
-  <h1 class="title">Website van Hanne</h1>
-   <ul class="navigation">
-    <li><a HREF="index.php?page=home">Home</a></li>
-    <li><a HREF="index.php?page=about">About</a></li>
-    <li><a HREF="index.php?page=contact">Contact</a></li>
-   </ul>
+<?php 
+
+function showHomeHeader () {
+    echo 'Website van Hanne';
+}
+    
+
+function showHomeContent () {
+    echo '
    <h2>Welkom</h2>
  <div>
  Beste lezer, <br>
  <p>Welkom op mijn website. Ik hoop dat u deze interessant vindt. Het vertelt wat over mij en mijn hobbies.<br> 
  Ook omvat het een formulier onder de pagina contact, waarmee u een bericht voor mij kunt achterlaten.<br>
  Ik doe mijn best om u zo snel mogelijk te antwoorden.</p>
- </div>   
- <footer>
-  <p><span>&copy;</span> 2022 Author: Hanne Meijers</p>
- </footer>
-</body>
-</html>
+</div> ';
+}

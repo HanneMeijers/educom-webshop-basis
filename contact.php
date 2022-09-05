@@ -1,55 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" href="CSS\mystyle.css">
-</head>
-<body>
-<?php
-// define variables and set to empty values
-$salutation = $name = $email = $phone = $commPref = $message = "";
-$salutationErr = $nameErr = $emailErr = $phoneErr = $commPrefErr = $messageErr = "";
-$valid = false;
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // validate the 'Post' data //
-  
-  if (empty($_POST["salutation"])) {
-    $salutationErr = "Aanhef is verplicht";
-  } else {
-     $salutation = cleanupInputFromUser($_POST["salutation"]);
-  }
-  
-  /* validate the name */
-  if (empty($_POST["name"])) {
-    $nameErr = "Naam is verplicht";
-  } else {
-      // $name = $_POST["name"];
-     $name = cleanupInputFromUser($_POST["name"]);
-  }
-  
-  if (empty($_POST["email"])) {
-    $emailErr = "E-mail is verplicht";
-  } else {
-     $email = cleanupInputFromUser($_POST["email"]);
-  }
-    
-  if (empty($_POST["phone"])) {
-    $phoneErr = "Telefoonnummer verplicht";
-  } else {
-     $phone = cleanupInputFromUser($_POST["phone"]);
-  }    
-  
-  if (empty($_POST["commPref"])) {
-    $commPrefErr = "Communicatievoorkeur verplicht";
-  } else {
-     $commPref = cleanupInputFromUser($_POST["commPref"]);
-  }
-  
-  if (empty ($_POST ["message"])) {
-    $messageErr = "Bericht is verplicht";
-  } else {
-    $message = cleanupInputFromUser($_POST["message"]); 
+<?php 
+function showContactHeader () {
+    echo 'Contactformulier';
 }
+
+function showContactContent () {
+    $data=validateContact ();
+    if (!$data ["valid"]) { /* Show the next part only when $valid is false */ 
+        showContactForm ($data);
+    } else { /* Show the next part only when $valid is true */
+       showContactThanks ();
+    }/* End of conditional showing */
+}
+
+function validateContact () {
+    
+// define variables and set to empty values
+    $salutation = $name = $email = $phone = $commPref = $message = "";
+    $salutationErr = $nameErr = $emailErr = $phoneErr = $commPrefErr = $messageErr = "";
+    $valid = false;
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      // validate the 'Post' data //
+      
+      if (empty($_POST["salutation"])) {
+        $salutationErr = "Aanhef is verplicht";
+      } else {
+         $salutation = cleanupInputFromUser($_POST["salutation"]);
+      }
+      
+      /* validate the name */
+      if (empty($_POST["name"])) {
+        $nameErr = "Naam is verplicht";
+      } else {
+          // $name = $_POST["name"];
+         $name = cleanupInputFromUser($_POST["name"]);
+      }
+      
+      if (empty($_POST["email"])) {
+        $emailErr = "E-mail is verplicht";
+      } else {
+         $email = cleanupInputFromUser($_POST["email"]);
+      }
+        
+      if (empty($_POST["phone"])) {
+        $phoneErr = "Telefoonnummer verplicht";
+      } else {
+         $phone = cleanupInputFromUser($_POST["phone"]);
+      }    
+      
+      if (empty($_POST["commPref"])) {
+        $commPrefErr = "Communicatievoorkeur verplicht";
+      } else {
+         $commPref = cleanupInputFromUser($_POST["commPref"]);
+      }
+      
+      if (empty ($_POST ["message"])) {
+        $messageErr = "Bericht is verplicht";
+      } else {
+        $message = cleanupInputFromUser($_POST["message"]); 
+      } 
+    }
+return Array ("salutation" => $salutation, "name" => $name, "email" => $email, "phone" => $phone, "commPref" => $commPref, "message" => $message, 
+"salutationErr" => $salutationErr, "nameErr" => $nameErr, "emailErr" => $emailErr, "phoneErr" => $phoneErr, "commPrefErr" => $commPrefErr, 
+"messageErr" => $messageErr, "valid" => $valid);
 
 }
 /**
@@ -65,75 +78,62 @@ function cleanupInputFromUser($data) {;
   $data = htmlspecialchars($data);
   return $data;
 }
-?>
 
-  <h1 class="title">Contactformulier</h1>
-   <ul class="navigation">
-    <li><a HREF="index.php?page=home">Home</a></li>
-    <li><a HREF="index.php?page=about">About</a></li>
-    <li><a HREF="index.php?page=contact">Contact</a></li>
-   </ul>
-   
-   <?php if (!$valid) { /* Show the next part only when $valid is false */ ?>;
+function showContactForm ($data) {
+    echo '
       
-      <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">;    
+      <form method="post" action="index.php" >    
     <div>
         <label for="salutation">Aanhef:</label>
         <select id="salutation" name="salutation">
             <option value="">Maak een keuze</option>
-            <option value="man" <?php if ($salutation == "man") { echo "selected"; } ?>>Man</option>
-            <option value="woman" <?php if ($salutation == "woman") { echo "selected"; }?>>Vrouw</option>
-            <option value="other" <?php if ($salutation == "other") { echo "selected"; }?>>Anders</option> 
+            <option value="man" '; if ($data ["salutation"] == "man") { echo "selected"; } echo '>Man</option>
+            <option value="woman" '; if ($data ["salutation"] == "woman") { echo "selected"; }echo '>Vrouw</option>
+            <option value="other" '; if ($data ["salutation"] == "other") { echo "selected"; } echo '>Anders</option> 
         </select>
-      <span class="error"> <?php echo $salutationErr; ?></span>
-    </div>
+      <span class="error"> '. $data ["salutationErr"] .'</span>
+    </div> ';
+    echo '
     <div>
         <label for="name">Naam:</label>
-        <input type="text" id="name" name="name" value="<?php echo $name; ?>" placeholder="Jan Klaassen">
-        <span class="error"> <?php echo $nameErr; ?></span>
+        <input type="text" id="name" name="name" value="'. $data ["name"] .'" placeholder="Jan Klaassen">
+        <span class="error"> '. $data ["nameErr"] .' </span>
     </div>
     <div>
     <label for="e-mail">E-mailadres:</label>
-    <input type="email" id="e-mail" name="email" value="<?php echo $email; ?>">
-    <span class="error"> <?php echo $emailErr; ?></span>
+    <input type="email" id="e-mail" name="email" value="'. $data ["email"] .'">
+    <span class="error"> '. $data ["emailErr"] .' </span>
     </div>
     <div>
     <label for="phone">Telefoonnummer:</label>
-    <input type="tel" id="phone" name="phone" value="<?php echo $phone; ?>">
-    <span class="error"> <?php echo $phoneErr; ?></span>
+    <input type="tel" id="phone" name="phone" value="'. $data ["phone"] .'">
+    <span class="error"> '. $data ["phoneErr"] .' </span>
     </div>
     <div>
     <label for="commPref">Communicatievoorkeur:</label>
-    <input type="radio" id="cp_e-mail" name="commPref" value="email" <?php if ($commPref == "email") { echo "checked"; }?>><label for="cp_e-mail">E-mail</label>
-    <input type="radio" id="cp_phone" name="commPref" value="phone" <?php if ($commPref == "phone") { echo "checked"; }?>><label for="cp_phone">Telefoon</label>
-    <span class="error"> <?php echo $commPrefErr; ?></span>
+    <input type="radio" id="cp_e-mail" name="commPref" value="'. $data ["commPref"] .'"><label for="cp_e-mail">E-mail</label>
+    <input type="radio" id="cp_phone" name="commPref" value="'. $data ["commPref"] .'"><label for="cp_phone">Telefoon</label>
+    <span class="error"> '. $data ["commPrefErr"] .' </span>
     </div>
     <div>
     <label for="message">Geef uw bericht:</label>
     </div>
     <div>
-    <textarea rows="10" cols="70" id="message" name="message" value="<?php echo $message; ?>"></textarea>
-    <span class="error"> <?php echo $messageErr ?></span>
+    <textarea rows="10" cols="70" id="message" name="message" value="'. $data ["message"] .'"></textarea>
+    <span class="error"> '. $data ["messageErr"] .' </span>
     </div>
     <div>
   <input type="submit" value="Verzend"> 
     </div>
-</form>
+</form> ';
+}
 
-    <?php } else { /* Show the next part only when $valid is true */ ?>;
-
-    <p>Bedankt voor uw reactie:</p> 
+function showContactThanks () {
+    echo '<p>Bedankt voor uw reactie:</p> 
     <div>Aanhef: <?php echo $salutation; ?></div>;    
     <div>Naam: <?php echo $name; ?></div>;
     <div>Email: <?php echo $email; ?></div>;
     <div>Telefoonnummer <?php echo $phone; ?></div>;
     <div>Communicatievoorkeur <?php echo $commPref; ?></div>
-    <div>Uw bericht: <?php echo $message; ?></div>;
-
-    <?php } /* End of conditional showing */ ?>;
-
- <footer>
-  <p><span>&copy;<span> 2022 Author: Hanne Meijers</p>
- </footer>
-</body>
-</html>
+    <div>Uw bericht: <?php echo $message; ?></div> ';
+}

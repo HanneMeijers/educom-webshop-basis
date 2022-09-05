@@ -57,7 +57,8 @@ function beginDocument()
 
 function showHeadSection() 
 { 
-  echo '<head>';
+  echo '<head>'; 
+  echo '<link rel="stylesheet" href="CSS\mystyle.css">';
   echo '</head>';
 }
 
@@ -78,25 +79,58 @@ function endDocument()
 
 function showHeader($page) 
 { 
-   echo '   <h1>
+    echo '<h1 class="title">';    
+    switch ($page) 
+   { 
+       case 'home':
+          require_once('home.php');
+          showHomeHeader();
+          break;
+       case 'about':
+          require_once('about.php');
+          showAboutHeader();
+          break;
+       case 'contact':
+       require_once('contact.php');
+       showContactHeader();
+          break;  
+   }     
+    echo '</h1>';  
 } 
 
+function showMenu ()
+{
+   echo '<ul class="navigation">
+    <li><a HREF="index.php?page=home">Home</a></li>
+    <li><a HREF="index.php?page=about">About</a></li>
+    <li><a HREF="index.php?page=contact">Contact</a></li>
+   </ul>' ;
+}
+  
 function showContent($page) 
 { 
    switch ($page) 
    { 
        case 'home':
-          require('home.php');
+          require_once('home.php');
           showHomeContent();
           break;
        case 'about':
-          require('about.php');
+          require_once('about.php');
           showAboutContent();
           break;
        case 'contact':
-       require('contact.php');
+       require_once('contact.php');
        showContactContent();
           break;  
    }     
 } 
 
+function showFooter ()
+  {
+      echo '<footer>';
+      echo '<p><span>&copy;</span> 2022 Author: Hanne Meijers</p>';
+      echo '</footer>';
+  }
+  
+function showThanks
