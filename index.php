@@ -91,9 +91,12 @@ function showHeader($page)
           showAboutHeader();
           break;
        case 'contact':
-       require_once('contact.php');
-       showContactHeader();
-          break;  
+          require_once('contact.php');
+          showContactHeader();
+          break; 
+       default:
+          show404Header();
+          break;       
    }     
     echo '</h1>';  
 } 
@@ -106,6 +109,11 @@ function showMenu ()
     <li><a HREF="index.php?page=contact">Contact</a></li>
    </ul>' ;
 }
+  
+  function show404Header ()
+  {
+    echo 'Page not found';
+  }
   
 function showContent($page) 
 { 
@@ -121,8 +129,11 @@ function showContent($page)
           break;
        case 'contact':
        require_once('contact.php');
-       showContactContent();
+          showContactContent();
           break;  
+       default: 
+          show404Content ();
+          break;
    }     
 } 
 
@@ -132,5 +143,8 @@ function showFooter ()
       echo '<p><span>&copy;</span> 2022 Author: Hanne Meijers</p>';
       echo '</footer>';
   }
-  
-function showThanks
+
+function show404Content()
+{
+     echo 'Deze pagina is niet gevonden, klik op Home';
+}
