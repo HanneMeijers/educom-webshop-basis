@@ -94,6 +94,14 @@ function showHeader($page)
           require_once('contact.php');
           showContactHeader();
           break; 
+       case 'register':
+          require_once('register.php');
+          showRegisterHeader();
+          break; 
+       case 'login':
+          require_once('login.php');
+          showLoginHeader();
+          break;
        default:
           show404Header();
           break;       
@@ -105,8 +113,10 @@ function showMenu ()
 {
    echo '<ul class="navigation">
     <li><a HREF="index.php?page=home">Home</a></li>
-    <li><a HREF="index.php?page=about">About</a></li>
+    <li><a HREF="index.php?page=about">Over mij</a></li>
     <li><a HREF="index.php?page=contact">Contact</a></li>
+    <li><a HREF="index.php?page=register">Registreer</a></li>
+    <li><a HREF="index.php?page=login">Login</a></li>
    </ul>' ;
 }
   
@@ -130,7 +140,15 @@ function showContent($page)
        case 'contact':
        require_once('contact.php');
           showContactContent();
-          break;  
+          break; 
+       case 'register':
+           require_once('register.php');
+           showRegisterContent ();
+           break;
+       case 'login':
+           require_once ('login.php');
+           showLoginContent ();
+           break;
        default: 
           show404Content ();
           break;
@@ -147,4 +165,18 @@ function showFooter ()
 function show404Content()
 {
      echo 'Deze pagina is niet gevonden, klik op Home';
+}
+
+/**
+ * Takes the input of a user and trims the whithespace in front en behind
+ * and removes all html special characters or replaces them with HTML equvalents
+ *
+ * @param string $data the user input
+ * @returns string the cleaned string.
+ */
+function cleanupInputFromUser($data) {;
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;
 }

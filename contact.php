@@ -72,19 +72,6 @@ function validateContact () {
                   "salutationErr" => $salutationErr, "nameErr" => $nameErr, "emailErr" => $emailErr, "phoneErr" => $phoneErr, "commPrefErr" => $commPrefErr, 
                   "messageErr" => $messageErr, "valid" => $valid);
 }
-/**
- * Takes the input of a user and trims the whithespace in front en behind
- * and removes all html special characters or replaces them with HTML equvalents
- *
- * @param string $data the user input
- * @returns string the cleaned string.
- */
-function cleanupInputFromUser($data) {;
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
 
 function showContactForm ($data) {
     echo '
