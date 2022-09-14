@@ -26,42 +26,35 @@ function validateContact () {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // validate the 'Post' data //
 
-        if (empty($_POST["salutation"])) {
-            $salutationErr = "Aanhef is verplicht";
-        } else {
-            $salutation = cleanupInputFromUser($_POST["salutation"]);
-        }
+        $salutation = cleanupInputFromUser(getPostDataVariabele("salutation"));
+        if (empty($salutation)) { 
+        $salutationErr = "Aanhef is verplicht"; 
+        } 
 
         /* validate the name */
-        if (empty($_POST["name"])) {
+        $name = cleanupInputFromUser(getPostDataVariabele("name"));
+        if (empty($name)) {
             $nameErr = "Naam is verplicht";
-        } else {
-            // $name = $_POST["name"];
-            $name = cleanupInputFromUser($_POST["name"]);
         }
 
-        if (empty($_POST["email"])) {
+        $email = cleanupInputFromUser(getPostDataVariabele("email"));
+        if (empty($email)) {
             $emailErr = "E-mail is verplicht";
-        } else {
-            $email = cleanupInputFromUser($_POST["email"]);
         }
 
-        if (empty($_POST["phone"])) {
+        $phone = cleanupInputFromUser(getPostDataVariabele("phone"));
+        if (empty($phone)) {
             $phoneErr = "Telefoonnummer verplicht";
-        } else {
-            $phone = cleanupInputFromUser($_POST["phone"]);
         }    
 
-        if (empty($_POST["commPref"])) {
+        $commPref = cleanupInputFromUser(getPostDataVariabele("commPref"));
+        if (empty($commPref)) {
             $commPrefErr = "Communicatievoorkeur verplicht";
-        } else {
-            $commPref = cleanupInputFromUser($_POST["commPref"]);
         }
 
-        if (empty ($_POST ["message"])) {
+        $message = cleanupInputFromUser(getPostDataVariabele("message"));
+        if (empty ($message)) {
             $messageErr = "Bericht is verplicht";
-        } else {
-            $message = cleanupInputFromUser($_POST["message"]); 
         } 
 
         if (empty($salutationErr) && empty($nameErr) && empty($emailErr) && empty($phoneErr) && empty($commPrefErr) && empty($messageErr)) {
@@ -80,10 +73,15 @@ function showContactForm ($data) {
         <label for="salutation">Aanhef:</label>
         <select id="salutation" name="salutation">
             <option value="">Maak een keuze</option>
-            <option value="man" '; if ($data ["salutation"] == "man") { echo "selected"; } echo '>'.SALUTATIONS['man'].'</option>
-            <option value="woman" '; if ($data ["salutation"] == "woman") { echo "selected"; }echo '>'.SALUTATIONS['woman'].'</option>
-            <option value="other" '; if ($data ["salutation"] == "other") { echo "selected"; } echo '>'.SALUTATIONS['other'].'</option> 
-        </select>
+      foreach(SALUTATIONS as $salutationKey => $salutationValue) {
+        if ($data ["salutation"] == "man") { echo "selected"; } 
+        echo '>' ".Man." '</option>'; 
+        if ($data ["salutation"] == "woman") { echo "selected"; } 
+        echo '>' ".Vrouw." '</option>';            
+        if ($data ["salutation"] == "other") { echo "selected"; } 
+        echo '>' ".Anders." '</option>';  
+    }     
+    echo '</select> 
       <span class="error"> '. $data ["salutationErr"] .'</span>
     </div> 
     <div>
