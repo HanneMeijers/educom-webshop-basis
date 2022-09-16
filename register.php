@@ -1,4 +1,6 @@
 <?php
+require_once "service.php";
+require_once "login.php";
 function showRegisterHeader () {
     echo 'Registreren';
 }
@@ -8,6 +10,8 @@ function showRegisterContent () {
     if (!$data ["valid"]) { /* Show the next part only when $valid is false */ 
         showRegisterForm ($data);
     } else { /* Show the next part only when $valid is true */
+        storeUser($data);
+        showLoginForm($data);    
     }/* End of conditional showing */
 }
 function validateRegister () {
@@ -88,19 +92,4 @@ function showRegisterForm ($data) {
 </form> ';
 }
 
-
-
-
-
-
-
-
-
-/* code voor openen en schrijven txt
-
-
-$myfile = fopen("Users.txt", "a+") or die("Unable to open file!");
-echo fread($myfile,filesize("Users.txt"));
-fclose($myfile);
-*/
 ?> 

@@ -8,6 +8,7 @@ function showLoginContent () {
     if (!$data ["valid"]) { /* Show the next part only when $valid is false */ 
         showLoginForm ($data);
     } else { /* Show the next part only when $valid is true */
+    doLoginUser ($data ["name"]); 
     }/* End of conditional showing */
 }
 function validateLogin () {
@@ -48,7 +49,7 @@ function validateLogin () {
         return Array ("name" => $name, "email" => $email, "password" => $password,
                       "emailErr" => $emailErr, "passwordErr" => $passwordErr, "valid" => $valid);
 }
-function showLoginForm ($data) {
+function showLoginForm($data) {
     echo '
       <form method="post" action="index.php" >    
     <div>

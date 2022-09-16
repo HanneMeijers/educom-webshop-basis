@@ -19,7 +19,13 @@ function authenticateUser($email, $password){
         return null;
     }
     if ($userArray ["password"] != $password){
-        return null;
+    var_dump($userArray ["password"]);
+    var_dump($password);
+    return null;
     }
     return $userArray;
-}    
+}     
+
+function storeUser($data) {
+    saveUser($data["email"], $data["name"], $data["password"]);
+}

@@ -1,4 +1,5 @@
 <?php 
+require_once("session_manager.php");
 //Main applicatie
 $page = getRequestedPage();
 showResponsePage($page);
@@ -102,6 +103,9 @@ function showHeader($page)
           require_once('login.php');
           showLoginHeader();
           break;
+       case 'logout':
+        require_once('home.php');
+          break;
        default:
           show404Header();
           break;       
@@ -114,10 +118,14 @@ function showMenu ()
    echo '<ul class="navigation">
     <li><a HREF="index.php?page=home">Home</a></li>
     <li><a HREF="index.php?page=about">Over mij</a></li>
-    <li><a HREF="index.php?page=contact">Contact</a></li>
-    <li><a HREF="index.php?page=register">Registreer</a></li>
-    <li><a HREF="index.php?page=login">Login</a></li>
-   </ul>' ;
+    <li><a HREF="index.php?page=contact">Contact</a></li>';
+    if (isUserLoggedIn()) {
+        echo '<li><a HREF="index.php?page=logout">Loguit ' . getLoggedInUsername() . '</a></li>';
+    } else {
+        echo '<li><a HREF="index.php?page=login">Login</a></li>;
+              <li><a HREF="index.php?page=register">Registreer</a></li>';
+    }
+    echo '</ul>' ;
 }
   
   function show404Header ()

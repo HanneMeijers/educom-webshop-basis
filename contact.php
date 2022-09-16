@@ -1,6 +1,6 @@
 <?php 
 
-define("SALUTATIONS", array ( "man" => "Man", "woman" => "Vrouw", "other" => "Anders"));
+define("SALUTATIONS", array ( "man" => "Man", "woman" => "Vrouw","other" => "Anders"));
 define ("COMMPREFS", array ("email" => "E-mail", "phone" => "Telefoon"));
 
 function showContactHeader () {
@@ -72,14 +72,11 @@ function showContactForm ($data) {
     <div>
         <label for="salutation">Aanhef:</label>
         <select id="salutation" name="salutation">
-            <option value="">Maak een keuze</option>
-      foreach(SALUTATIONS as $salutationKey => $salutationValue) {
-        if ($data ["salutation"] == "man") { echo "selected"; } 
-        echo '>' ".Man." '</option>'; 
-        if ($data ["salutation"] == "woman") { echo "selected"; } 
-        echo '>' ".Vrouw." '</option>';            
-        if ($data ["salutation"] == "other") { echo "selected"; } 
-        echo '>' ".Anders." '</option>';  
+            <option value="">Maak een keuze</option>';
+    foreach(SALUTATIONS as $salutationKey => $salutationValue) {
+        echo PHP_EOL . '<option value="' . $salutationKey . '" ';
+        if ($data ["salutation"] == $salutationKey) { echo "selected"; } 
+        echo '>' .$salutationValue. '</option>';  
     }     
     echo '</select> 
       <span class="error"> '. $data ["salutationErr"] .'</span>
@@ -100,10 +97,11 @@ function showContactForm ($data) {
     <span class="error"> '. $data ["phoneErr"] .' </span>
     </div>
     <div>
-    <label for="commPref">Communicatievoorkeur:</label>
-    <input type="radio" id="cp_e-mail" name="commPref" value="email" '; if ($data ["commPref"] == "email") { echo "checked"; } echo '><label for="cp_e-mail">'.COMMPREFS["email"].'</label>
-    <input type="radio" id="cp_phone" name="commPref" value="phone" '; if ($data ["commPref"] == "phone") { echo "checked"; } echo '><label for="cp_phone">'.COMMPREFS["phone"].'</label>
-    <span class="error"> '. $data ["commPrefErr"] .' </span>
+    <label for="commPref">Communicatievoorkeur:</label>' . PHP_EOL;
+    foreach(COMMPREFS as $key => $value) {
+       echo '<input type="radio" id="cp_' . $key . '" name="commPref" value="' . $key . '" '; if ($data ["commPref"] == $key) { echo "checked"; } echo '><label for="cp_' . $key . '">'.$value.'</label>' . PHP_EOL;
+    }
+    echo '<span class="error"> '. $data ["commPrefErr"] .' </span>
     </div>
     <div>
     <label for="message">Geef uw bericht:</label>
