@@ -3,14 +3,6 @@ function showLoginHeader () {
     echo 'Log in';
 }
 
-function showLoginContent () {
-    $data=validateLogin ();
-    if (!$data ["valid"]) { /* Show the next part only when $valid is false */ 
-        showLoginForm ($data);
-    } else { /* Show the next part only when $valid is true */
-    doLoginUser ($data ["name"]); 
-    }/* End of conditional showing */
-}
 function validateLogin () {
     
     // define variables and set to empty values

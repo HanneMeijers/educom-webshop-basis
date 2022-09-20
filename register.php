@@ -55,8 +55,13 @@ function validateRegister () {
         } 
 
         if (empty($nameErr) && empty($emailErr) && empty($passwordErr) && empty($passwordCheckErr)) {
-            $valid = true;
+            if (doesUserExist($email)) {
+                $emailErr = "e-mailadres is al in gebruik, ga naar login";
+            } else{
+                $valid = true;
+            }
         }
+       
     }
     
         return Array ("name" => $name, "email" => $email, "password" => $password, "passwordCheck" => $passwordCheck,

@@ -61,6 +61,7 @@ function validateContact () {
             $valid = true;
         }
     }
+
     return Array ("salutation" => $salutation, "name" => $name, "email" => $email, "phone" => $phone, "commPref" => $commPref, "message" => $message, 
                   "salutationErr" => $salutationErr, "nameErr" => $nameErr, "emailErr" => $emailErr, "phoneErr" => $phoneErr, "commPrefErr" => $commPrefErr, 
                   "messageErr" => $messageErr, "valid" => $valid);

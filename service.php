@@ -3,7 +3,7 @@ require_once("repository.php");
 
 function doesUserExist($email) {
     $userArray=findUserByEmail($email);
-    return empty($userArray);
+    return !empty($userArray);
 }
 
 /**

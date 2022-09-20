@@ -1,6 +1,4 @@
 [email]|[naam]|[wachtwoord]
-coach@man-kind.nl|Geert Weggemans|halt!hanne_meijers@hotmail.com|Hanne Meijers|Eemnes11
+coach@man-kind.nl|Geert Weggemans|halt!
 hanne_meijers@hotmail.com|Hanne Meijers|Eemnes11
-hanne_meijers@hotmail.com|Hanne Meijers|Eemnes11
-hanne_meijers@hotmail.com|Hanne Meijers|Eemnes11
-hanne_meijers@hotmail.com|Hanne Meijers|Eemnes11
+harry@mail.com|Harry|123ABC

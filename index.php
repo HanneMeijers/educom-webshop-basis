@@ -2,7 +2,9 @@
 require_once("session_manager.php");
 //Main applicatie
 $page = getRequestedPage();
-showResponsePage($page);
+$data = processRequest($page);
+//var_dump($data);
+showResponsePage($data);
 
 function getRequestedPage () {
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
@@ -43,10 +45,48 @@ function getArrayVar($array, $key, $default='')
    return isset($array[$key]) ? $array[$key] : $default; 
 } 
 
-function showResponsePage($page) {
+function processRequest($page) {
+    switch($page) {
+    case 'login':
+        require_once 'login.php';
+        $data=validateLogin();
+        if ($data ["valid"]) {
+            doLoginUser($data['name']);
+            $page='home';
+        }
+        break;
+    
+    case 'logout':
+        doLogoutUser();
+        $page='home';
+        break;
+    
+    case 'contact':
+        require_once 'contact.php';
+        $data = validateContact();
+        if ($data['valid']) {
+            $page='thanks';
+        }
+        break;
+    
+    case 'register':
+        require_once 'register.php';
+        $data = validateRegister();
+        if ($data['valid']) {
+            storeUser($data);
+            $page='login';
+        }
+        break;
+    }
+    $data['page']= $page;
+    return $data;
+}
+    
+
+function showResponsePage($data) {
    beginDocument(); 
    showHeadSection(); 
-   showBodySection($page); 
+   showBodySection($data); 
    endDocument();  
 }
 
@@ -63,12 +103,12 @@ function showHeadSection()
   echo '</head>';
 }
 
-function showBodySection($page) 
+function showBodySection($data) 
 { 
    echo '    <body>' . PHP_EOL; 
-   showHeader($page);
+   showHeader($data['page']);
    showMenu(); 
-   showContent($page); 
+   showContent($data); 
    showFooter(); 
    echo '    </body>' . PHP_EOL; 
 } 
@@ -80,7 +120,7 @@ function endDocument()
 
 function showHeader($page) 
 { 
-    echo '<h1 class="title">';    
+    echo '<h1 class="title">';
     switch ($page) 
    { 
        case 'home':
@@ -92,6 +132,7 @@ function showHeader($page)
           showAboutHeader();
           break;
        case 'contact':
+       case 'thanks':
           require_once('contact.php');
           showContactHeader();
           break; 
@@ -108,7 +149,7 @@ function showHeader($page)
           break;
        default:
           show404Header();
-          break;       
+          break;           
    }     
     echo '</h1>';  
 } 
@@ -133,30 +174,37 @@ function showMenu ()
     echo 'Page not found';
   }
   
-function showContent($page) 
-{ 
-   switch ($page) 
-   { 
+function showContent($data) {  
+   switch($data['page']) { 
        case 'home':
           require_once('home.php');
           showHomeContent();
           break;
+          
        case 'about':
           require_once('about.php');
           showAboutContent();
           break;
+          
        case 'contact':
        require_once('contact.php');
-          showContactContent();
+          showContactForm($data);
           break; 
+          
        case 'register':
            require_once('register.php');
-           showRegisterContent ();
+           showRegisterForm ($data);
            break;
+           
        case 'login':
-           require_once ('login.php');
-           showLoginContent ();
+           require_once('login.php');
+           showLoginForm ($data);
            break;
+           
+       case 'thanks':
+            showContactThanks ($data);
+            break;
+           
        default: 
           show404Content ();
           break;
